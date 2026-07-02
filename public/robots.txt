@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://renggli-treuhand.ch/sitemap.xml

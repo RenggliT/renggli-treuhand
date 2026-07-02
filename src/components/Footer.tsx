@@ -1,22 +1,28 @@
 import React, { useState } from "react";
-import { FileText, MapPin, Mail, Phone } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { MapPin, Mail, Phone } from "lucide-react";
 
 export default function Footer() {
   const [logoError, setLogoError] = useState(false);
-  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
-    e.preventDefault();
-    const element = document.getElementById(targetId);
-    if (element) {
-      const offset = 80;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+  const location = useLocation();
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth"
-      });
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    const isHomePage = location.pathname === "/";
+    if (isHomePage) {
+      e.preventDefault();
+      const element = document.getElementById(targetId);
+      if (element) {
+        const offset = 80;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: "smooth"
+        });
+      }
     }
   };
 
@@ -59,49 +65,53 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2.5 text-xs">
               <li>
-                <a
-                  href="#leistungen"
-                  onClick={(e) => handleAnchorClick(e, "leistungen")}
+                <Link
+                  to="/services"
                   className="hover:text-brand-accent transition-colors text-white/80"
                 >
-                  Steuererklärung
-                </a>
+                  Leistungen
+                </Link>
               </li>
               <li>
-                <a
-                  href="#ueber-uns"
+                <Link
+                  to="/#ueber-uns"
                   onClick={(e) => handleAnchorClick(e, "ueber-uns")}
                   className="hover:text-brand-accent transition-colors text-white/80"
                 >
                   Über mich
-                </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#warum-wir"
-                  onClick={(e) => handleAnchorClick(e, "warum-wir")}
+                <Link
+                  to="/tax-tips"
                   className="hover:text-brand-accent transition-colors text-white/80"
                 >
-                  Ihre Vorteile
-                </a>
+                  Steuertipps
+                </Link>
               </li>
               <li>
-                <a
-                  href="#preise"
-                  onClick={(e) => handleAnchorClick(e, "preise")}
+                <Link
+                  to="/faq"
                   className="hover:text-brand-accent transition-colors text-white/80"
                 >
-                  Preise & Tarife
-                </a>
+                  FAQ (Fragen)
+                </Link>
               </li>
               <li>
-                <a
-                  href="#kontakt"
-                  onClick={(e) => handleAnchorClick(e, "kontakt")}
+                <Link
+                  to="/blog"
+                  className="hover:text-brand-accent transition-colors text-white/80"
+                >
+                  Ratgeber
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/contact"
                   className="hover:text-brand-accent transition-colors text-white/80"
                 >
                   Kontakt & Anfahrt
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -139,15 +149,15 @@ export default function Footer() {
             © {new Date().getFullYear()} Renggli-Treuhand. Alle Rechte vorbehalten.
           </span>
           <div className="flex gap-4">
-            <a href="#kontakt" onClick={(e) => handleAnchorClick(e, "kontakt")} className="hover:text-white/60 transition-colors">
+            <Link to="/contact" className="hover:text-white/60 transition-colors">
               Impressum
-            </a>
-            <a href="#kontakt" onClick={(e) => handleAnchorClick(e, "kontakt")} className="hover:text-white/60 transition-colors">
+            </Link>
+            <Link to="/contact" className="hover:text-white/60 transition-colors">
               Datenschutz
-            </a>
-            <a href="#kontakt" onClick={(e) => handleAnchorClick(e, "kontakt")} className="hover:text-white/60 transition-colors">
+            </Link>
+            <Link to="/contact" className="hover:text-white/60 transition-colors">
               Kontakt
-            </a>
+            </Link>
           </div>
         </div>
 

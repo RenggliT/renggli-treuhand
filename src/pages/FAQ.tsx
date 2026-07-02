@@ -1,0 +1,143 @@
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "motion/react";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema } from "../lib/seoData";
+import { ChevronRight, HelpCircle, Plus, Minus, ArrowRight } from "lucide-react";
+
+export default function FAQ() {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
+  const faqs = [
+    {
+      question: "Welche Unterlagen werden für die Steuererklärung benötigt?",
+      answer: "Für eine vollständige Deklaration benötige ich in der Regel: Ihren aktuellen Lohnausweis, die Steuermeldungen der Bankkonten (Zins- und Saldoausweise per 31.12.), Belege über Krankheits- und Zahnarztkosten, Einzahlungsbelege der Säule 3a, Spendenbescheinigungen sowie ggf. Unterlagen zu Wohneigentum (Liegenschaftskosten, Schuldzinsen)."
+    },
+    {
+      question: "Wie läuft die Zusammenarbeit mit Renggli-Treuhand ab?",
+      answer: "Der Ablauf ist denkbar einfach: 1. Sie nehmen unverbindlich per Formular, E-Mail oder Telefon Kontakt auf. 2. Sie erhalten von mir eine Checkliste und senden mir Ihre Unterlagen digital (per E-Mail/Upload) oder per Post zu. 3. Ich erstelle Ihre Steuererklärung innert weniger Tage. 4. Sie erhalten die fertige Erklärung zur Durchsicht und Unterschrift. 5. Ich reiche die Erklärung direkt elektronisch beim Steueramt ein."
+    },
+    {
+      question: "Übernehmen Sie auch die Fristerstreckung beim Steueramt für mich?",
+      answer: "Ja, absolut. Sobald Sie mir den Auftrag erteilen, übernehme ich auf Wunsch die Beantragung der Fristerstreckung beim zuständigen Steueramt des Kantons Zürich (z.B. in Stallikon bis zum 30. November), damit Sie sich um keine Fristen sorgen müssen. Dieser Service ist in meinen Pauschalpreisen bereits inbegriffen."
+    },
+    {
+      question: "Was kostet die Erstellung der Steuererklärung?",
+      answer: "Ich biete transparente Pauschalpreise an, die sich nach Ihrer Lebenssituation richten. So kostet die einfache Steuererklärung für Jugendliche und junge Erwachsene in Ausbildung CHF 60.-, für Singles ab CHF 110.-, und für Familien oder verheiratete Paare ab CHF 150.-. Es gibt keine versteckten Nebenkosten."
+    },
+    {
+      question: "Sind meine Steuerdaten und persönlichen Unterlagen bei Ihnen geschützt?",
+      answer: "Datenschutz und Diskretion haben bei mir oberste Priorität. Alle Ihre Dokumente werden verschlüsselt auf Schweizer Servern gespeichert und vertraulich nach den Richtlinien des Schweizer Datenschutzgesetzes (DSG) behandelt. Ich gebe niemals Daten an Dritte weiter."
+    }
+  ];
+
+  // Generate Google FAQPage structured schema
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map((faq) => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+
+  const pageSchema = [
+    faqSchema,
+    getBreadcrumbSchema([
+      { name: "Home", url: "https://renggli-treuhand.ch" },
+      { name: "FAQ", url: "https://renggli-treuhand.ch/faq" }
+    ])
+  ];
+
+  return (
+    <>
+      <SEO
+        title="FAQ & Fragen | Steuererklärung Stallikon - Renggli-Treuhand"
+        description="Häufig gestellte Fragen und Antworten rund um das Thema Steuererklärung ausfüllen lassen, Kosten, benötigte Unterlagen und Fristerstreckung in Stallikon & Zürich."
+        canonicalUrl="https://renggli-treuhand.ch/faq"
+        schema={pageSchema}
+      />
+
+      <div className="pt-24 pb-20 bg-radial from-brand-bg-warm via-brand-bg-card to-white/60">
+        <div className="max-w-4xl mx-auto px-6">
+          <div className="py-12 border-b border-brand-primary/10 text-center">
+            <span className="text-xs font-bold text-brand-accent uppercase tracking-widest block mb-3">
+              Schnelle Antworten
+            </span>
+            <h1 className="font-serif text-4xl sm:text-5xl text-brand-primary tracking-tight mb-6">
+              Häufig gestellte Fragen (FAQ).
+            </h1>
+            <p className="font-sans text-brand-primary/80 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+              Hier finden Sie einfache und verständliche Antworten rund um die Steuererklärung für Privatpersonen im Kanton Zürich und die Zusammenarbeit mit Renggli-Treuhand.
+            </p>
+          </div>
+
+          {/* Breadcrumbs */}
+          <nav className="flex py-4 text-xs font-sans text-brand-primary/60 border-b border-brand-primary/5 mb-12">
+            <Link to="/" className="hover:text-brand-accent">Home</Link>
+            <ChevronRight size={12} className="mx-2 self-center" />
+            <span className="text-brand-primary font-bold">FAQ</span>
+          </nav>
+
+          {/* FAQ Accordion List */}
+          <div className="space-y-4 text-left">
+            {faqs.map((faq, index) => {
+              const isOpen = openIndex === index;
+              return (
+                <div
+                  key={index}
+                  className="bg-brand-bg-card border border-brand-primary/10 rounded-xl overflow-hidden transition-all duration-300"
+                >
+                  <button
+                    onClick={() => setOpenIndex(isOpen ? null : index)}
+                    className="w-full flex items-center justify-between p-5 text-left font-serif font-bold text-base sm:text-lg text-brand-primary hover:text-brand-accent transition-colors gap-4"
+                  >
+                    <span>{faq.question}</span>
+                    <div className="p-1 bg-brand-primary/5 text-brand-accent rounded-md">
+                      {isOpen ? <Minus size={16} /> : <Plus size={16} />}
+                    </div>
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {isOpen && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
+                      >
+                        <div className="px-5 pb-5 pt-1 font-sans text-xs sm:text-sm text-brand-primary/80 leading-relaxed border-t border-brand-primary/5">
+                          {faq.answer}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Contact Support CTA */}
+          <div className="mt-16 bg-brand-primary text-white p-8 sm:p-10 rounded-2xl text-center">
+            <HelpCircle className="w-10 h-10 text-brand-accent mx-auto mb-4" />
+            <h2 className="font-serif text-xl sm:text-2xl mb-2">Ihre Frage wurde nicht beantwortet?</h2>
+            <p className="font-sans text-xs sm:text-sm text-white/80 max-w-md mx-auto mb-6">
+              Kein Problem! Schreiben Sie mir einfach über das Kontaktformular oder rufen Sie mich direkt an. Ich helfe Ihnen gerne weiter.
+            </p>
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center gap-2 font-sans font-bold text-xs uppercase tracking-wider px-6 py-3 bg-white text-brand-primary rounded-xl hover:bg-brand-bg-warm transition-colors"
+            >
+              Persönlichen Kontakt aufnehmen
+              <ArrowRight size={13} />
+            </Link>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

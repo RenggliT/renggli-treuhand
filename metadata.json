@@ -1,0 +1,6 @@
+{
+  "name": "Renggli-Treuhand",
+  "description": "Persönliche, sympathische Steuererklärungen für Privatpersonen in Stallikon und Region.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

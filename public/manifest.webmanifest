@@ -1,0 +1,21 @@
+{
+  "name": "Renggli-Treuhand",
+  "short_name": "Renggli",
+  "description": "Professionelle Steuererklärung und Steuerberatung für Privatpersonen in Stallikon und Kanton Zürich.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0F2A4A",
+  "icons": [
+    {
+      "src": "/images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

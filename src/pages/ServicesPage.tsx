@@ -1,0 +1,198 @@
+import React from "react";
+import { Link } from "react-router-dom";
+import { motion } from "motion/react";
+import SEO from "../components/SEO";
+import { getBreadcrumbSchema } from "../lib/seoData";
+import { CheckCircle2, ChevronRight, FileCheck, Landmark, Users, ArrowRight, ShieldCheck, HeartHandshake } from "lucide-react";
+
+export default function ServicesPage() {
+  const pageSchema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Steuererklärung für Privatpersonen",
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Renggli-Treuhand",
+        "telephone": "+41435117856",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "Püntenstrasse 26",
+          "addressLocality": "Stallikon",
+          "postalCode": "8143",
+          "addressCountry": "CH"
+        }
+      },
+      "serviceType": "Tax Preparation",
+      "areaServed": {
+        "@type": "State",
+        "name": "Zürich"
+      },
+      "description": "Erstellung der privaten Steuererklärung für Angestellte, Familien, Rentner und junge Erwachsene in Stallikon und dem Kanton Zürich."
+    },
+    getBreadcrumbSchema([
+      { name: "Home", url: "https://renggli-treuhand.ch" },
+      { name: "Dienstleistungen", url: "https://renggli-treuhand.ch/services" }
+    ])
+  ];
+
+  const services = [
+    {
+      id: "private-taxes",
+      title: "Steuererklärung für Privatpersonen",
+      description: "Ich erstelle Ihre jährliche Steuererklärung lückenlos, professionell und unter Berücksichtigung aller gesetzlich zulässigen Abzüge. Egal ob Sie angestellt, selbstständig im Nebenerwerb oder pensioniert sind.",
+      icon: <FileCheck className="w-6 h-6 text-brand-accent" />,
+      features: [
+        "Sorgfältige Prüfung aller Abzugsmöglichkeiten (Berufsauslagen, Säule 3a, Krankheitskosten)",
+        "Erstellung des Wertschriftenverzeichnisses",
+        "Prüfung der Steuerveranlagung",
+        "Beratung zu Fristerstreckungen und Ratenzahlungen",
+        "Kostenlose Einreichung direkt beim Steueramt des Kantons Zürich",
+      ]
+    },
+    {
+      id: "trust-advising",
+      title: "Steuerberatung & Optimierung",
+      description: "Eine gute Steuerberatung geht über das Ausfüllen von Formularen hinaus. Ich zeige Ihnen Optimierungspotenziale auf, damit Sie langfristig Steuern sparen.",
+      icon: <Landmark className="w-6 h-6 text-brand-accent" />,
+      features: [
+        "Planung von Einzahlungen in die Säule 3a und Pensionskasse",
+        "Steuerliche Beratung beim Liegenschaftskauf, -verkauf oder Renovationen",
+        "Steuerplanung bei Heirat, Scheidung oder Pensionierung",
+        "Erben und Schenken (Schenkungssteuer-Optimierung)",
+        "Vertretung vor den Steuerbehörden im Kanton Zürich",
+      ]
+    },
+    {
+      id: "special-groups",
+      title: "Beratung für spezifische Lebenssituationen",
+      description: "Jede Lebensphase bringt eigene steuerliche Herausforderungen mit sich. Meine Dienstleistungen sind exakt auf Ihre persönlichen Bedürfnisse zugeschnitten.",
+      icon: <Users className="w-6 h-6 text-brand-accent" />,
+      features: [
+        "Rentner & Pensionierte: Optimierung von Renteneinkünften und Vermögenswerten",
+        "Familien: Maximierung von Kinderabzügen und Betreuungskosten",
+        "Liegenschaftsbesitzer: Eigenmietwert und Abzug von Unterhaltskosten",
+        "Junge Erwachsene: Erste Steuererklärung unkompliziert zum Spezialtarif",
+        "Internationals: Beratung bei Quellensteuer, Zuzug oder Grenzgängern",
+      ]
+    }
+  ];
+
+  return (
+    <>
+      <SEO
+        title="Dienstleistungen | Steuerberatung & Steuererklärung Stallikon"
+        description="Detaillierte Übersicht über die Treuhand- und Steuerdienstleistungen von Renggli-Treuhand in Stallikon, Zürich, Wettswil und Bonstetten. Steuerberatung für Privatpersonen."
+        canonicalUrl="https://renggli-treuhand.ch/services"
+        schema={pageSchema}
+      />
+
+      <div className="pt-24 pb-16 bg-radial from-brand-bg-warm via-brand-bg-card to-white/60">
+        <div className="max-w-6xl mx-auto px-6">
+          <div className="py-12 border-b border-brand-primary/10">
+            <span className="text-xs font-bold text-brand-accent uppercase tracking-widest block mb-3">
+              Umfassende Kompetenz
+            </span>
+            <h1 className="font-serif text-4xl sm:text-5xl text-brand-primary tracking-tight max-w-3xl mb-6">
+              Steuer- und Treuhandberatung für Ihre Bedürfnisse.
+            </h1>
+            <p className="font-sans text-brand-primary/80 text-lg max-w-2xl leading-relaxed">
+              Als qualifizierter Treuhänder biete ich Ihnen in Stallikon, Zürich und dem gesamten Säuliamt eine persönliche und fachkundige Unterstützung bei allen Steuerfragen.
+            </p>
+          </div>
+
+          {/* Breadcrumbs for SEO */}
+          <nav className="flex py-4 text-xs font-sans text-brand-primary/60 border-b border-brand-primary/5 mb-12">
+            <Link to="/" className="hover:text-brand-accent">Home</Link>
+            <ChevronRight size={12} className="mx-2 self-center" />
+            <span className="text-brand-primary font-bold">Dienstleistungen</span>
+          </nav>
+
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+            {/* Services Detailed List */}
+            <div className="lg:col-span-8 space-y-16">
+              {services.map((service, index) => (
+                <div key={service.id} id={service.id} className="scroll-mt-24 text-left">
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-brand-primary/5 rounded-xl border border-brand-primary/10">
+                      {service.icon}
+                    </div>
+                    <h2 className="font-serif text-2xl sm:text-3xl text-brand-primary tracking-tight">
+                      {service.title}
+                    </h2>
+                  </div>
+                  <p className="font-sans text-brand-primary/80 text-sm sm:text-base leading-relaxed mb-6">
+                    {service.description}
+                  </p>
+                  
+                  <div className="bg-brand-bg-card border border-brand-primary/10 rounded-2xl p-6 sm:p-8">
+                    <h3 className="font-sans text-xs font-extrabold text-brand-primary uppercase tracking-widest mb-4">
+                      Inbegriffene Leistungen:
+                    </h3>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      {service.features.map((feature, fIndex) => (
+                        <li key={fIndex} className="flex items-start gap-3">
+                          <CheckCircle2 size={16} className="text-brand-accent mt-0.5 shrink-0" />
+                          <span className="font-sans text-sm text-brand-primary/80 leading-snug">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Sticky Sidebar Info */}
+            <div className="lg:col-span-4 lg:sticky lg:top-28 space-y-6 text-left">
+              <div className="bg-brand-primary text-white p-6 sm:p-8 rounded-2xl shadow-sm border border-brand-primary/10">
+                <h3 className="font-serif text-xl mb-3">Warum Renggli-Treuhand?</h3>
+                <p className="font-sans text-white/80 text-xs sm:text-sm leading-relaxed mb-6">
+                  Sparen Sie kostbare Zeit und Ärger. Profitieren Sie von einer diskreten, kompetenten Bearbeitung direkt aus Stallikon ZH.
+                </p>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <ShieldCheck className="w-5 h-5 text-brand-accent shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-sans font-bold text-xs">Höchste Diskretion</h4>
+                      <p className="font-sans text-[11px] text-white/70">Ihre Daten sind bei mir absolut sicher und geschützt.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <HeartHandshake className="w-5 h-5 text-brand-accent shrink-0 mt-0.5" />
+                    <div>
+                      <h4 className="font-sans font-bold text-xs">Persönlicher Kontakt</h4>
+                      <p className="font-sans text-[11px] text-white/70">Kein unpersönliches Grossunternehmen, sondern direkte Betreuung.</p>
+                    </div>
+                  </div>
+                </div>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center justify-center gap-2 w-full mt-8 py-3 bg-white text-brand-primary font-sans font-bold text-xs uppercase tracking-wider rounded-xl hover:bg-brand-bg-warm transition-colors"
+                >
+                  Beratung buchen
+                  <ArrowRight size={13} />
+                </Link>
+              </div>
+
+              {/* Service Areas */}
+              <div className="bg-brand-bg-card border border-brand-primary/10 p-6 rounded-2xl">
+                <h3 className="font-sans text-xs font-bold text-brand-primary uppercase tracking-widest mb-4">
+                  Einzugsgebiet / Regionen:
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {["Stallikon", "Wettswil", "Bonstetten", "Affoltern am Albis", "Birmensdorf", "Zürich-West", "Säuliamt"].map((area, index) => (
+                    <span key={index} className="px-2.5 py-1 bg-brand-primary/5 text-brand-primary text-[10px] font-bold rounded-md border border-brand-primary/10">
+                      {area}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
