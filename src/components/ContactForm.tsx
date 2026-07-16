@@ -82,7 +82,7 @@ export default function ContactForm() {
               {/* Direct Contacts list */}
               <div className="space-y-5">
                 <a
-                  href="tel:0435117856"
+                  href="tel:0765243983"
                   className="flex items-center gap-4 p-3 bg-brand-bg-card hover:bg-brand-primary/[0.02] border border-brand-primary/10 rounded-xl transition-colors group"
                 >
                   <div className="p-2.5 bg-brand-primary/5 text-brand-accent rounded-lg group-hover:bg-brand-primary/10 transition-colors">
@@ -93,7 +93,7 @@ export default function ContactForm() {
                       Telefon
                     </span>
                     <span className="font-sans text-sm font-bold text-brand-primary">
-                      043 511 78 56
+                      076 524 39 83
                     </span>
                   </div>
                 </a>
