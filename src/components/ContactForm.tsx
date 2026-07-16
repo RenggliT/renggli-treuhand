@@ -16,17 +16,43 @@ export default function ContactForm() {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formData.name || !formData.email) return;
+  const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    setIsSubmitting(true);
-    // Simulate real local form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 1000);
-  };
+  if (!formData.name || !formData.email) return;
+
+  setIsSubmitting(true);
+
+  try {
+    const response = await fetch("https://formspree.io/f/xaqgkoyb", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Formular konnte nicht gesendet werden.");
+    }
+
+    setIsSubmitted(true);
+
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      category: "Privatperson",
+      region: "Stallikon",
+      message: "",
+    });
+  } catch (error) {
+    alert("Die Nachricht konnte leider nicht gesendet werden. Bitte versuchen Sie es erneut oder schreiben Sie direkt an info@renggli-treuhand.ch.");
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
